@@ -31,12 +31,14 @@ sudo iptables -t nat -A POSTROUTING -o enp0s3 -s  192.168.1.0/24 -j MASQUERADE
 sudo iptables -A FORWARD -s <ip-adress> -j LOG --log-prefix "IPTables-Forward-In: " --log-level 4  
 
 # Grafana installation  
-
+Установка на клиент(Нужна возможность подключения к бд)
 https://grafana.com/docs/grafana/latest/setup-grafana/installation/redhat-rhel-fedora/  
 https://grafana.com/grafana/download   
 Запускаем grafana-server.bat  
+Запускаем Grafana в браузере по дефолту localhost:3000, логин паролль admin admin  
+В Grafana в левом навбаре connections -> Data sources, справа сверху Add new datasources -> MySql, и затем настраиваем имя пользователя пароль и тд.
 Далее скачиваем файл Traffic Logs.json  
-В левом навбаре выбираем dashboards, справа сверху New -> Import и заливаем json файл
+В самой Grafana в левом навбаре выбираем dashboards, справа сверху New -> Import и заливаем json файл
 ["Импорт панели"](./grafana.png)  
 
 # Python
