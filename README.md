@@ -34,6 +34,13 @@ sudo iptables -A FORWARD -s <ip-adress> -j LOG --log-prefix "IPTables-Forward-In
 
 https://grafana.com/docs/grafana/latest/setup-grafana/installation/redhat-rhel-fedora/  
 https://grafana.com/grafana/download  
+
+# Python
+sudo dnf install python3  
+sudo dnf install python3-pip  
+pip install mysql-connector-python
+
+
 # Dashboard json  
 
 {  
