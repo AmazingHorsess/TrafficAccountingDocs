@@ -1,5 +1,5 @@
 # TrafficAccountingDocs
-MySQL db code
+# MySQL db code
 CREATE DATABASE traffic_accounting;
 USE traffic_accoutning;
 -- Table structure for table `users`
@@ -11,6 +11,7 @@ CREATE TABLE `users` (
     PRIMARY KEY (`id`),
     UNIQUE KEY `src_ip` (`src_ip`)
 );
+
 CREATE TABLE `traffic_logs` (
     `id` bigint unsigned NOT NULL AUTO_INCREMENT,
     `src_ip` varchar(15) NOT NULL,
@@ -25,16 +26,16 @@ CREATE TABLE `traffic_logs` (
     CONSTRAINT `fk_src_ip` FOREIGN KEY (`src_ip`) REFERENCES `users` (`src_ip`) ON DELETE CASCADE
 );
 
-
-
-IPTables Rules
+# IPTables Rules
 sudo iptables -t nat -A POSTROUTING -o enp0s3 -s  192.168.1.0/24 -j MASQUERADE
 sudo iptables -A FORWARD -s <ip-adress> -j LOG --log-prefix "IPTables-Forward-In: " --log-level 4
 
-Grafana installation
+# Grafana installation
+
 https://grafana.com/docs/grafana/latest/setup-grafana/installation/redhat-rhel-fedora/
 https://grafana.com/grafana/download
-Dashboard json
+# Dashboard json
+
 {
   "annotations": {
     "list": [
