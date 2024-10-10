@@ -18,14 +18,46 @@ CREATE TABLE `users` (
     UNIQUE KEY `src_ip` (`src_ip`)  
 );
 ```
+#### Шаг 3: Таблица логов трафика (traffic_logs)
+```sqlТаблица traffic_logs хранит данные о трафике, такие как IP-адреса источников и получателей, временная метка пакетов и длина пакетов. Она ссылается на таблицу users через внешний ключ.
 
-# IPTables Rules  
-sudo iptables -t nat -A POSTROUTING -o enp0s3 -s  192.168.1.0/24 -j MASQUERADE  
-sudo iptables -A FORWARD -s <ip-adress> -j LOG --log-prefix "IPTables-Forward-In: " --log-level 4  
+CREATE TABLE `traffic_logs` (  
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,  
+    `src_ip` VARCHAR(15) NOT NULL,  
+    `dst_ip` VARCHAR(15) NOT NULL,  
+    `ts` TIMESTAMP NULL DEFAULT NULL,  
+    `packet_length` BIGINT NOT NULL,  
+    PRIMARY KEY (`id`),  
+    UNIQUE KEY `id` (`id`),  
+    KEY `idx_traffic_src_ip` (`src_ip`),  
+    KEY `idx_traffic_timestamp` (`ts`),  
+    KEY `idx_traffic_bytes` (`packet_length`),  
+    CONSTRAINT `fk_src_ip` FOREIGN KEY (`src_ip`) REFERENCES `users` (`src_ip`) ON DELETE CASCADE  
+);
+```
+## Настройка IPTables
 
-# Grafana installation  
-Установка на клиент(Нужна возможность подключения к бд)  
-https://grafana.com/grafana/download  
+Следующие правила IPTables используются для логирования трафика и выполнения трансляции сетевых адресов (NAT).
+
+### Шаг 1: Включение NAT для определённой подсети
+```bash
+sudo iptables -t nat -A POSTROUTING -o enp0s3 -s 192.168.1.0/24 -j MASQUERADE
+```
+### Шаг 2: Логирование трафика для конкретных IP-адресов
+```bash
+sudo iptables -A FORWARD -s <ip-address> -j LOG --log-prefix "IPTables-Forward-In: " --log-level
+```
+## Установка Grafana
+
+Grafana используется для мониторинга и визуализации логов трафика. Для установки и настройки Grafana выполните следующие шаги:
+
+### Шаг 1: Загрузка Grafana
+[Скачать Grafana](https://grafana.com/grafana/download) и следовать инструкциям по установке для вашей операционной системы.
+
+### Шаг 2: Запуск Grafana
+После установки запустите сервер Grafana:
+```bash
+./grafana/bin/grafana-server
 Докуметация к grafana https://grafana.com/docs/grafana/latest/introduction/   
 В архиве grafana/bin/grafana-server Запускаем grafana-server 
 Запускаем Grafana в браузере по дефолту localhost:3000, логин паролль admin admin  
