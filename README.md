@@ -39,6 +39,8 @@ https://grafana.com/grafana/download
 sudo dnf install python3  
 sudo dnf install python3-pip  
 pip install mysql-connector-python
+Скачать скрипт в репозитории traffic_logs.py  
+Отредактировать в нём пароль и имя пользователя для подключения к базе данных.
 
 
 # Dashboard json  
