@@ -33,7 +33,10 @@ sudo iptables -A FORWARD -s <ip-adress> -j LOG --log-prefix "IPTables-Forward-In
 # Grafana installation  
 
 https://grafana.com/docs/grafana/latest/setup-grafana/installation/redhat-rhel-fedora/  
-https://grafana.com/grafana/download  
+https://grafana.com/grafana/download   
+Запускаем grafana-server.bat  
+Далее скачиваем файл Traffic Logs.json  
+["Импорт панели"](grafana.png)  
 
 # Python
 sudo dnf install python3  
