@@ -6,18 +6,16 @@
 ```sql
 CREATE DATABASE traffic_accounting;  
 USE traffic_accounting;
-CREATE TABLE `traffic_logs` (  
-    `id` bigint unsigned NOT NULL AUTO_INCREMENT,  
-    `src_ip` varchar(15) NOT NULL,  
-    `dst_ip` varchar(15) NOT NULL,  
-    `ts` timestamp NULL DEFAULT NULL,  
-    `packet_length` bigint NOT NULL,  
+```
+### Шаг 2: Таблица пользователей (users)
+```sql Таблица users хранит уникальные IP-адреса источников и, при необходимости, имена пользователей для отслеживания сетевого трафика.
+DROP TABLE IF EXISTS `users`;  
+CREATE TABLE `users` (  
+    `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,  
+    `src_ip` VARCHAR(15) NOT NULL,  
+    `username` VARCHAR(30) DEFAULT NULL,  
     PRIMARY KEY (`id`),  
-    UNIQUE KEY `id` (`id`),  
-    KEY `idx_traffic_src_ip` (`src_ip`),  
-    KEY `idx_traffic_timestamp` (`ts`),  
-    KEY `idx_traffic_bytes` (`packet_length`),  
-    CONSTRAINT `fk_src_ip` FOREIGN KEY (`src_ip`) REFERENCES `users` (`src_ip`) ON DELETE CASCADE  
+    UNIQUE KEY `src_ip` (`src_ip`)  
 );
 ```
 
