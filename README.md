@@ -36,6 +36,7 @@ https://grafana.com/docs/grafana/latest/setup-grafana/installation/redhat-rhel-f
 https://grafana.com/grafana/download   
 Запускаем grafana-server.bat  
 Далее скачиваем файл Traffic Logs.json  
+В левом навбаре выбираем dashboards, справа сверху New -> Import и заливаем json файл
 ["Импорт панели"](./grafana.png)  
 
 # Python
