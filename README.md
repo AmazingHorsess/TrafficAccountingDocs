@@ -36,13 +36,13 @@ https://grafana.com/docs/grafana/latest/setup-grafana/installation/redhat-rhel-f
 https://grafana.com/grafana/download   
 Запускаем grafana-server.bat  
 Далее скачиваем файл Traffic Logs.json  
-["Импорт панели"](grafana.png)  
+["Импорт панели"](./grafana.png)  
 
 # Python
 sudo dnf install python3  
 sudo dnf install python3-pip  
 pip install mysql-connector-python
-Скачать скрипт в репозитории traffic_logs.py  
+Скачать скрипт в репозитории traffic_log_processor.py  
 Отредактировать в нём пароль и имя пользователя для подключения к базе данных.
 
 
