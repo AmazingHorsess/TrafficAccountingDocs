@@ -1,17 +1,11 @@
 # TrafficAccountingDocs
-# MySQL db code
+
+## Настройка базы данных MySQL
+
+### Шаг 1: Создание и использование базы данных
+```sql
 CREATE DATABASE traffic_accounting;  
-USE traffic_accoutning;  
--- Table structure for table `users`  
-DROP TABLE IF EXISTS `users`;  
-CREATE TABLE `users` (  
-    `id` bigint unsigned NOT NULL AUTO_INCREMENT,  
-    `src_ip` varchar(15) NOT NULL,  
-    `username` varchar(30) DEFAULT NULL,  
-    PRIMARY KEY (`id`),  
-    UNIQUE KEY `src_ip` (`src_ip`)  
-);  
-  
+USE traffic_accounting;
 CREATE TABLE `traffic_logs` (  
     `id` bigint unsigned NOT NULL AUTO_INCREMENT,  
     `src_ip` varchar(15) NOT NULL,  
@@ -24,17 +18,18 @@ CREATE TABLE `traffic_logs` (
     KEY `idx_traffic_timestamp` (`ts`),  
     KEY `idx_traffic_bytes` (`packet_length`),  
     CONSTRAINT `fk_src_ip` FOREIGN KEY (`src_ip`) REFERENCES `users` (`src_ip`) ON DELETE CASCADE  
-);  
+);
+```
 
 # IPTables Rules  
 sudo iptables -t nat -A POSTROUTING -o enp0s3 -s  192.168.1.0/24 -j MASQUERADE  
 sudo iptables -A FORWARD -s <ip-adress> -j LOG --log-prefix "IPTables-Forward-In: " --log-level 4  
 
 # Grafana installation  
-Установка на клиент(Нужна возможность подключения к бд)
-https://grafana.com/docs/grafana/latest/setup-grafana/installation/redhat-rhel-fedora/  
-https://grafana.com/grafana/download   
-Запускаем grafana-server.bat  
+Установка на клиент(Нужна возможность подключения к бд)  
+https://grafana.com/grafana/download  
+Докуметация к grafana https://grafana.com/docs/grafana/latest/introduction/   
+В архиве grafana/bin/grafana-server Запускаем grafana-server 
 Запускаем Grafana в браузере по дефолту localhost:3000, логин паролль admin admin  
 В Grafana в левом навбаре connections -> Data sources, справа сверху Add new datasources -> MySql, и затем настраиваем имя пользователя пароль и тд.
 Далее скачиваем файл Traffic Logs.json  
