@@ -18,9 +18,8 @@ CREATE TABLE `users` (
     UNIQUE KEY `src_ip` (`src_ip`)  
 );
 ```
-#### Шаг 3: Таблица логов трафика (traffic_logs)
-```sqlТаблица traffic_logs хранит данные о трафике, такие как IP-адреса источников и получателей, временная метка пакетов и длина пакетов. Она ссылается на таблицу users через внешний ключ.
-
+### Шаг 3: Таблица логов трафика (traffic_logs)
+```sql Таблица traffic_logs хранит данные о трафике, такие как IP-адреса источников и получателей, временная метка пакетов и длина пакетов. Она ссылается на таблицу users через внешний ключ.
 CREATE TABLE `traffic_logs` (  
     `id` BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,  
     `src_ip` VARCHAR(15) NOT NULL,  
@@ -58,15 +57,23 @@ Grafana используется для мониторинга и визуали
 После установки запустите сервер Grafana:
 ```bash
 ./grafana/bin/grafana-server
+```
+Или просто через папки /grafana/bin/grafana-server
 Докуметация к grafana https://grafana.com/docs/grafana/latest/introduction/   
-В архиве grafana/bin/grafana-server Запускаем grafana-server 
-Запускаем Grafana в браузере по дефолту localhost:3000, логин паролль admin admin  
-В Grafana в левом навбаре connections -> Data sources, справа сверху Add new datasources -> MySql, и затем настраиваем имя пользователя пароль и тд.
-Далее скачиваем файл Traffic Logs.json  
-В самой Grafana в левом навбаре выбираем dashboards, справа сверху New -> Import и заливаем json файл
+По умолчанию Grafana будет работать на localhost:3000. Войдите в систему, используя стандартные учетные данные:
+Имя пользователя: admin
+Пароль: admin
+### Шаг 3: Добавление источника данных MySQL
+Перейдите в раздел Connections -> Data sources.
+Нажмите Add new datasource.
+Выберите MySQL и настройте его, указав учетные данные базы данных.
+### Шаг 4: Импорт панели мониторинга
+Скачайте файл Traffic Logs.json.
+В Grafana перейдите в раздел Dashboards -> New -> Import.
+Загрузите JSON-файл, чтобы создать панель мониторинга логов трафика.
 ["Импорт панели"](./grafana.png)  
 
-# Python
+## Установка Python
 sudo dnf install python3  
 sudo dnf install python3-pip  
 pip install mysql-connector-python
